@@ -29,26 +29,26 @@
         }
 
         /* 顶部装饰：Offer 崽吉祥物 */
-/* 1. 容器：只负责定位，不要背景和边框 */
+/* 1. 容器：只管位置，不给背景和阴影 */
 .mascot-header {
     text-align: center;
-    margin-bottom: -50px; /* 增加负边距，让图片更自然地压在黄色区域上 */
+    margin-bottom: -55px; /* 调整这个值，让图片正好压在黄色边缘 */
     z-index: 100;
     position: relative;
-    pointer-events: none; /* 防止容器点击遮挡 */
 }
 
-/* 2. 图片：直接展示你的精美原图 */
+/* 2. 图片：去掉背景色、阴影和边框 */
 .mascot-img {
-    width: 120px;       /* 适当放大，让你的 logo 更醒目 */
-    height: 120px;
-    background: transparent !important; /* 强制透明，去掉那个讨厌的白圈 */
-    padding: 0 !important;          /* 去掉内边距，防止原图缩小 */
-    border: none !important;         /* 去掉 CSS 自动生成的边框 */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 加一点点阴影让它更立体 */
-    border-radius: 50%;              /* 确保边缘平滑 */
-    object-fit: contain;             /* 确保原图不被裁剪 */
-    pointer-events: auto;            /* 恢复图片本身的点击 */
+    width: 130px;      /* 保持合适的大小 */
+    height: 130px;
+    background: none !important;      /* 彻底禁用背景色 */
+    background-color: transparent !important; /* 确保没有透明底色 */
+    box-shadow: none !important;      /* 删掉你觉得难看的阴影圈 */
+    border: none !important;          /* 删掉边框 */
+    padding: 0 !important;            /* 删掉内边距，防止缩放 */
+    display: inline-block;
+    object-fit: contain;              /* 确保原图不失真 */
+}
 }
         header {
             background: var(--offer-yellow);
@@ -265,6 +265,7 @@
 </body>
 
 </html>
+
 
 
 
