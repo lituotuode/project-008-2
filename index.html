@@ -29,27 +29,26 @@
         }
 
         /* 顶部装饰：Offer 崽吉祥物 */
-/* 容器：取消背景和边框，只做定位 */
+/* 1. 容器：只负责定位，不要背景和边框 */
 .mascot-header {
     text-align: center;
-    margin-bottom: -40px; /* 维持半悬浮效果 */
-    z-index: 10;
+    margin-bottom: -50px; /* 增加负边距，让图片更自然地压在黄色区域上 */
+    z-index: 100;
     position: relative;
+    pointer-events: none; /* 防止容器点击遮挡 */
 }
-        }
-/* 图片：既然原图是圆的，我们直接展示原图 */
+
+/* 2. 图片：直接展示你的精美原图 */
 .mascot-img {
-    width: 100px;
-    height: 100px;
-    /* 去掉背景色和内边距，防止白色底框出现 */
-    background: transparent; 
-    padding: 0;
-    /* 去掉边框，或者只保留一个淡淡的投影 */
-    border: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-    object-fit: contain;
-    /* 强制保持圆形比例 */
-    border-radius: 50%; 
+    width: 120px;       /* 适当放大，让你的 logo 更醒目 */
+    height: 120px;
+    background: transparent !important; /* 强制透明，去掉那个讨厌的白圈 */
+    padding: 0 !important;          /* 去掉内边距，防止原图缩小 */
+    border: none !important;         /* 去掉 CSS 自动生成的边框 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 加一点点阴影让它更立体 */
+    border-radius: 50%;              /* 确保边缘平滑 */
+    object-fit: contain;             /* 确保原图不被裁剪 */
+    pointer-events: auto;            /* 恢复图片本身的点击 */
 }
         header {
             background: var(--offer-yellow);
@@ -266,5 +265,6 @@
 </body>
 
 </html>
+
 
 
