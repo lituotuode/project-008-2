@@ -29,25 +29,29 @@
         }
 
         /* 顶部装饰：Offer 崽吉祥物 */
-/* 1. 容器：只负责定位，不要背景和边框 */
+/* 1. 容器：通过大幅度负边距实现“压线”效果 */
 .mascot-header {
     text-align: center;
-    margin-bottom: -10px; /* 增加负边距，让图片更自然地压在黄色区域上 */
+    /* 关键：将负边距设为图片高度的一半左右 */
+    margin-bottom: -65px; 
     z-index: 100;
     position: relative;
-    pointer-events: none; /* 防止容器点击遮挡 */
+    pointer-events: none;
 }
 
-/* 2. 图片：直接展示你的精美原图 */
+/* 2. 图片：放大尺寸并保持纯净 */
 .mascot-img {
-    width: 120px;       /* 适当放大，让你的 logo 更醒目 */
-    height: 120px;
-    background: transparent !important; /* 强制透明，去掉那个讨厌的白圈 */
-    padding: 0 !important;          /* 去掉内边距，防止原图缩小 */
-    border: none !important;         /* 去掉 CSS 自动生成的边框 */
-    border-radius: 50%;              /* 确保边缘平滑 */
-    object-fit: contain;             /* 确保原图不被裁剪 */
-    pointer-events: auto;            /* 恢复图片本身的点击 */
+    /* 放大尺寸到 130px */
+    width: 130px; 
+    height: 130px;
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 50%;
+    object-fit: contain;
+    pointer-events: auto;
+    /* 可选：加一个非常淡的投影，让压线效果更有层次感 */
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
 }
         
         header {
@@ -265,6 +269,7 @@
 </body>
 
 </html>
+
 
 
 
