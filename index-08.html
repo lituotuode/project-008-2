@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Offer 崽隐写助手</title>
+    <style>
+        :root {
+            --offer-yellow: #FFD000; /* 标志性的 Offer 黄 */
+            --offer-dark: #222222;
+            --bg-soft: #FFF9E6;
+            --card-radius: 20px;
+        }
+
+        body {
+            background-color: var(--bg-soft);
+            color: var(--offer-dark);
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        /* 顶部装饰：Offer 崽吉祥物 */
+        .mascot-header {
+            text-align: center;
+            margin-bottom: -15px; /* 让卡片和头像产生重叠感 */
+            z-index: 10;
+            position: relative;
+        }
+
+        .mascot-img {
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            border-radius: 50%;
+            border: 4px solid var(--offer-yellow);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: var(--offer-yellow);
+            padding: 30px 20px 20px;
+            border-radius: var(--card-radius) var(--card-radius) 0 0;
+            text-align: center;
+        }
+
+        header h1 { margin: 10px 0 5px; font-size: 22px; }
+        header p { margin: 0; font-size: 13px; opacity: 0.8; }
+
+        .main-content {
+            background: #fff;
+            border-radius: 0 0 var(--card-radius) var(--card-radius);
+            padding: 25px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        /* 区域拆分样式 */
+        .section-box {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 2px dashed #FFE066;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .section-tag {
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background: var(--offer-yellow);
+            padding: 2px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .section-box h3 { font-size: 16px; margin: 5px 0 15px; color: #444; }
+
+        input[type="file"] {
+            font-size: 13px;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            height: 85px;
+            padding: 12px;
+            border: 1px solid #EEE;
+            border-radius: 10px;
+            background: #FAFAFA;
+            font-size: 14px;
+            resize: none;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        textarea:focus { border-color: var(--offer-yellow); }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.1s;
+        }
+
+        .btn-encode { background: var(--offer-yellow); color: var(--offer-dark); }
+        .btn-decode { background: #333; color: #FFF; }
+        .btn:active { transform: scale(0.96); }
+
+        .preview-area {
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .preview-area img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 3px solid var(--offer-yellow);
+        }
+
+        #resultText {
+            margin-top: 15px;
+            padding: 15px;
+            background: #FFF9E6;
+            border-left: 5px solid var(--offer-yellow);
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+            word-break: break-all;
+        }
+
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #BBB; }
+
+        canvas { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="mascot-header">
+        <img src="https://via.placeholder.com/100/FFD000/333333?text=Offer+Zai" class="mascot-img" alt="Offer崽">
+    </div>
+
+    <header>
+        <h1>Offer 崽隐写助手</h1>
+        <p>让每一份“密信”都藏在像素里</p>
+    </header>
+
+    <div class="main-content">
+        <div class="section-box">
+            <span class="section-tag">ENCODE</span>
+            <h3>制作隐写图</h3>
+            <input type="file" id="inpE" accept="image/*">
+            <textarea id="txtE" placeholder="输入想对 Offer 崽说的话..."></textarea>
+            <button class="btn btn-encode" onclick="goE()">生成并保存</button>
+            <div id="resE" class="preview-area">
+                <img id="imgE">
+                <p style="font-size:12px; color:#FF9500; margin-top:8px;">✨ 生成成功！请长按上方图片保存 ✨</p>
+            </div>
+        </div>
+
+        <div class="section-box" style="border-color: #DDD;">
+            <span class="section-tag" style="background:#333; color:#FFF;">DECODE</span>
+            <h3>提取隐藏内容</h3>
+            <input type="file" id="inpD" accept="image/*">
+            <button class="btn btn-decode" onclick="goD()">立即解析</button>
+            <div id="resultText"></div>
+        </div>
+    </div>
+
+    <footer>© 2026 Offer 崽像素工厂</footer>
+</div>
+
+<canvas id="cvs"></canvas>
+
+<script>
+    const cvs = document.getElementById('cvs');
+    const ctx = cvs.getContext('2d');
+
+    // 编码逻辑
+    function goE() {
+        const file = document.getElementById('inpE').files[0];
+        const text = document.getElementById('txtE').value;
+        if(!file || !text) return alert("崽崽提醒：请先上传图片和文字哦！");
+
+        const fr = new FileReader();
+        fr.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+                cvs.width = img.width; cvs.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height);
+                const b64 = btoa(unescape(encodeURIComponent(text)));
+                const bin = b64.split('').map(c => c.charCodeAt(0).toString(2).padStart(8, '0')).join('') + '00000000';
+                
+                if (bin.length > imgData.data.length / 4) return alert("图片太小啦，装不下这么多话！");
+
+                for (let i = 0; i < bin.length; i++) {
+                    imgData.data[i * 4] = (imgData.data[i * 4] & 0xFE) | parseInt(bin[i]);
+                }
+                ctx.putImageData(imgData, 0, 0);
+                document.getElementById('imgE').src = cvs.toDataURL('image/png');
+                document.getElementById('resE').style.display = 'block';
+            };
+            img.src = e.target.result;
+        };
+        fr.readAsDataURL(file);
+    }
+
+    // 解码逻辑
+    function goD() {
+        const file = document.getElementById('inpD').files[0];
+        if(!file) return alert("崽崽提醒：请上传要解析的图片！");
+
+        const fr = new FileReader();
+        fr.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+                cvs.width = img.width; cvs.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height);
+                let bin = "";
+                for (let i = 0; i < imgData.data.length; i += 4) {
+                    bin += (imgData.data[i] & 1);
+                    if (bin.length >= 8 && bin.slice(-8) === "00000000") break;
+                }
+                const chars = bin.match(/.{8}/g);
+                let b64 = "";
+                for (let c of chars) {
+                    if (c === "00000000") break;
+                    b64 += String.fromCharCode(parseInt(c, 2));
+                }
+                try {
+                    const res = decodeURIComponent(escape(atob(b64)));
+                    const box = document.getElementById('resultText');
+                    box.innerHTML = "<strong>解析成功：</strong><br>" + res;
+                    box.style.display = 'block';
+                } catch(err) { alert("这里面好像没有藏着秘密哦~"); }
+            };
+            img.src = e.target.result;
+        };
+        fr.readAsDataURL(file);
+    }
+</script>
+</body>
+</html>
