@@ -29,22 +29,28 @@
         }
 
         /* 顶部装饰：Offer 崽吉祥物 */
-        .mascot-header {
-            text-align: center;
-            margin-bottom: -15px; /* 让卡片和头像产生重叠感 */
-            z-index: 10;
-            position: relative;
+/* 容器：取消背景和边框，只做定位 */
+.mascot-header {
+    text-align: center;
+    margin-bottom: -40px; /* 维持半悬浮效果 */
+    z-index: 10;
+    position: relative;
+}
         }
-
-        .mascot-img {
-            width: 100px;
-            height: 100px;
-            background: #fff;
-            border-radius: 50%;
-            border: 4px solid var(--offer-yellow);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
+/* 图片：既然原图是圆的，我们直接展示原图 */
+.mascot-img {
+    width: 100px;
+    height: 100px;
+    /* 去掉背景色和内边距，防止白色底框出现 */
+    background: transparent; 
+    padding: 0;
+    /* 去掉边框，或者只保留一个淡淡的投影 */
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    object-fit: contain;
+    /* 强制保持圆形比例 */
+    border-radius: 50%; 
+}
         header {
             background: var(--offer-yellow);
             padding: 30px 20px 20px;
@@ -260,4 +266,5 @@
 </body>
 
 </html>
+
 
